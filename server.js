@@ -253,7 +253,6 @@ app.post('/login', async (req, res) => {
         );
 
         res.cookie("token", token);
-
         return res.json({
             success: true,
             message: "Logged in successfully"
@@ -308,6 +307,19 @@ app.get('/profile', async (req, res) => {
         console.log("Error: ", err);
     }
 
+})
+
+app.get('/signout', async (req, res) => {
+    const token = req.cookies.token;
+    if (token) {
+        res.clearCookie('token');
+        return res.status(200).json({
+            success: true
+        })
+    }
+    return res.status(404).json({
+        success: false
+    })
 })
 
 
